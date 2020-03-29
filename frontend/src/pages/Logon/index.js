@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import api from '../../services/api';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
+import api from '../../services/api';
 import { FiLogIn } from 'react-icons/fi';
 
 import './styles.css';
@@ -13,6 +15,8 @@ import heroesImg from '../../assets/heroes.png';
 export default function Logon() {
 	const [id, setId] = useState('');
 	const history = useHistory();
+
+	const alerta = withReactContent(Swal);
 
 	async function handleLogin(e) {
 		e.preventDefault();
@@ -25,7 +29,7 @@ export default function Logon() {
 
 			history.push('/profile');
 		} catch (err) {
-			alert('Falha no login, tente novamente.');
+			alerta.fire('Falha no login, tente novamente.');
 		}
 	}
 

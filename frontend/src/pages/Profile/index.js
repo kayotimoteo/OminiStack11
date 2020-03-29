@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 import api from '../../services/api';
 
 import './styles.css';
@@ -12,6 +15,8 @@ export default function Profile() {
 
 	const ongId = localStorage.getItem('ongId');
 	const ongName = localStorage.getItem('ongName');
+
+	const alerta = withReactContent(Swal);
 
 	const history = useHistory();
 
@@ -36,7 +41,7 @@ export default function Profile() {
 			});
 			setIncidents(incidents.filter((incident) => incident.id !== id));
 		} catch (err) {
-			alert('Erro ao deletar o caso, tente novamente.');
+			alerta.fire('Erro ao deletar o caso, tente novamente.');
 		}
 	}
 	function handleLogout() {

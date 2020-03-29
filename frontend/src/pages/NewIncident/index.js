@@ -7,6 +7,9 @@ import './styles.css';
 import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft } from 'react-icons/fi';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 export default function NewIncident() {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
@@ -14,6 +17,8 @@ export default function NewIncident() {
 
 	const history = useHistory();
 	const ongId = localStorage.getItem('ongId');
+
+	const alerta = withReactContent(Swal);
 
 	async function handleNewIncident(e) {
 		e.preventDefault();
@@ -23,6 +28,7 @@ export default function NewIncident() {
 			description,
 			value,
 		};
+
 		try {
 			await api.post('incidents', data, {
 				headers: {
@@ -32,7 +38,7 @@ export default function NewIncident() {
 
 			history.push('/profile');
 		} catch (err) {
-			alert('Erro ao cadastrar caso, tente novamente.');
+			alerta.fire('Erro ao cadastrar caso, tente novamente.');
 		}
 	}
 

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 import api from '../../services/api';
 
 import './styles.css';
@@ -16,6 +19,8 @@ export default function Register() {
 
 	const history = useHistory();
 
+	const alerta = withReactContent(Swal);
+
 	async function handleRegister(e) {
 		e.preventDefault();
 
@@ -28,12 +33,11 @@ export default function Register() {
 		};
 		try {
 			const response = await api.post('/ongs', data);
-
-			alert(`Seu ID de acesso: ${response.data.id}`);
+			alerta.fire(`Seu ID de acesso: ${response.data.id}`);
 
 			history.push('/');
 		} catch (err) {
-			alert('Erro no cadastro, tente nocamente');
+			alerta.fire('Erro no cadastro, tente novamente.');
 		}
 	}
 
