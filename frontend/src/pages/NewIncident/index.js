@@ -7,8 +7,7 @@ import './styles.css';
 import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft } from 'react-icons/fi';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import Alert from '../../components/Alert'
 
 export default function NewIncident() {
 	const [title, setTitle] = useState('');
@@ -17,8 +16,6 @@ export default function NewIncident() {
 
 	const history = useHistory();
 	const ongId = localStorage.getItem('ongId');
-
-	const alerta = withReactContent(Swal);
 
 	async function handleNewIncident(e) {
 		e.preventDefault();
@@ -38,7 +35,7 @@ export default function NewIncident() {
 
 			history.push('/profile');
 		} catch (err) {
-			alerta.fire('Erro ao cadastrar caso, tente novamente.');
+			Alert("Erro ao cadastrar caso, tente novamente.");
 		}
 	}
 

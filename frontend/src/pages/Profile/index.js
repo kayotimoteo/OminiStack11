@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-
 import api from '../../services/api';
+
+import Alert from '../../components/Alert'
 
 import './styles.css';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
 import logoImg from '../../assets/logo.svg';
+
 
 export default function Profile() {
 	const [incidents, setIncidents] = useState([]);
 
 	const ongId = localStorage.getItem('ongId');
 	const ongName = localStorage.getItem('ongName');
-
-	const alerta = withReactContent(Swal);
 
 	const history = useHistory();
 
@@ -41,7 +39,7 @@ export default function Profile() {
 			});
 			setIncidents(incidents.filter((incident) => incident.id !== id));
 		} catch (err) {
-			alerta.fire('Erro ao deletar o caso, tente novamente.');
+			Alert("Erro ao deletar o caso, tente novamente.")
 		}
 	}
 	function handleLogout() {
